@@ -1,0 +1,949 @@
+{
+	"info": {
+		"_postman_id": "27f5ce7c-f674-4da4-8733-537c803cafcb",
+		"name": "guajirito collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth requests",
+			"item": [
+				{
+					"name": "loggin as administrator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"tokenAdmin\", data.accessToken)\r",
+									"pm.environment.set(\"refreshTokenAdmin\", data.refreshToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loggin as employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"tokenEmployee\", data.accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "empleado",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "empleado",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login as client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"tokenClient\", data.accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "cliente",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "cliente",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh an access token for ADMIN user created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"tokenAdmin\", data.accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "{{refreshTokenAdmin}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/refreshToken",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log out, delete a valid refresh token for ADMIN user created",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "{{refreshTokenAdmin}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "parking requests",
+			"item": [
+				{
+					"name": "add / create a parking - ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"newParkingId\", data.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "maxCapacity",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/parking",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all parkings - ADMIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/parking",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one parking - ADMIN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3000/parking/{{newParkingId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parking",
+								"{{newParkingId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update one parking - ADMIN",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{newParkingId}}",
+									"type": "text"
+								},
+								{
+									"key": "maxCapacity",
+									"value": "45",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/parking",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get status of a parking - EMPLOYEE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenEmployee}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idParking",
+									"value": "40",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/parking/status",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parking",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a parking - ADMIN",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{newParkingId}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/parking",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parking"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rent requests",
+			"item": [
+				{
+					"name": "add / create a rent - CLIENT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"newRentId\", data.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenClient}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idparking",
+									"value": "{{newParkingId}}",
+									"type": "text"
+								},
+								{
+									"key": "initialdate",
+									"value": "2023-07-24 11:59:59",
+									"type": "text"
+								},
+								{
+									"key": "enddate",
+									"value": "2023-07-27 11:59:59",
+									"type": "text"
+								},
+								{
+									"key": "idcar",
+									"value": "P123321",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/rent",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all rents - ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3000/rent",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one rent - ADMIN, CLIENT (users can only get rents created by himself))",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3000/rent/{{newRentId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rent",
+								"{{newRentId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a rent - ADMIN, CLIENT (users can only update rents that they has created))",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "initialdate",
+									"value": "2023-07-24 11:59:59",
+									"type": "text"
+								},
+								{
+									"key": "enddate",
+									"value": "2023-07-25 09:10:00",
+									"type": "text"
+								},
+								{
+									"key": "idcar",
+									"value": "asddsa",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/rent/{{newRentId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rent",
+								"{{newRentId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a rent - ADMIN, CLIENT (users can only delete rents created by themself)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/rent/{{newRentId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rent",
+								"{{newRentId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user requests",
+			"item": [
+				{
+					"name": "add / create an user - ADMIN",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"newUserId\", data.id)\r",
+									"pm.environment.set(\"newUserUsername\", data.username)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "identifier@server.domain",
+									"type": "text"
+								},
+								{
+									"key": "contactnumber",
+									"value": "123321",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "username",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/user",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users - ADMIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/user",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one user - ADMIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/user/{{newUserId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"{{newUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update one user - ADMIN",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{newUserId}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "changed",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "changed",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "email@server.domain",
+									"type": "text"
+								},
+								{
+									"key": "contactnumber",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/user",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign role(s) to an user - ADMIN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{newUserId}}",
+									"type": "text"
+								},
+								{
+									"key": "roleId",
+									"value": "[1,2]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/user/assign",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"assign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete one user - ADMIN",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/user/{{newUserId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"{{newUserId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "log requests",
+			"item": [
+				{
+					"name": "get all logs - ADMIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/log",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"log"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all logs - ADMIN",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Brearer {{tokenAdmin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/log",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"log"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
